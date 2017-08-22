@@ -5,7 +5,7 @@ import os
 from setuptools import setup, find_packages
 
 setup(
-    name = 'taiga-contrib-ldap-auth',
+    name = 'txstate-taiga-contrib-ldap-auth',
     version = ":versiontools:taiga_contrib_ldap_auth:",
     description = "The Taiga plugin for ldap authentication",
     long_description = "",
