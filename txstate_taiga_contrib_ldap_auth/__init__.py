@@ -1,3 +1,4 @@
+# coding=utf-8
 # Copyright (C) 2014 Andrey Antukh <niwi@niwi.be>
 # Copyright (C) 2014 Jesús Espino <jespinog@gmail.com>
 # Copyright (C) 2014 David Barragán <bameda@dbarragan.com>
@@ -14,15 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.apps import AppConfig
-from django.db.models import signals
+__version__ = (0, 1, 1)
 
-
-class TaigaContribLDAPAuthAppConfig(AppConfig):
-    name = "taiga_contrib_ldap_auth"
-    verbose_name = "Taiga contrib ldap auth App Config"
-
-    def ready(self):
-        from taiga.auth.services import register_auth_plugin
-        from . import services
-        register_auth_plugin("ldap", services.ldap_login_func)
+default_app_config = "txstate_taiga_contrib_ldap_auth.apps.TaigaContribLDAPAuthAppConfig"

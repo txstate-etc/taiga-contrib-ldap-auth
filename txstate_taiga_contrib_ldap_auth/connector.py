@@ -36,7 +36,8 @@ BIND_DN = getattr(settings, "LDAP_BIND_DN", "")
 BIND_PASSWORD = getattr(settings, "LDAP_BIND_PASSWORD", "")
 
 EMAIL_PROPERTY = getattr(settings, "LDAP_EMAIL_PROPERTY", "")
-FULL_NAME_PROPERTY = getattr(settings, "LDAP_FULL_NAME_PROPERTY", "")
+GIVEN_NAME_PROPERTY = getattr(settings, "LDAP_GIVEN_NAME_PROPERTY", "")
+SURNAME_PROPERTY = getattr(settings, "LDAP_SURNAME_PROPERTY", "")
 
 def login(username: str, password: str) -> tuple:
 
@@ -67,13 +68,16 @@ def login(username: str, password: str) -> tuple:
         c.search(search_base = SEARCH_BASE,
                  search_filter = search_filter,
                  search_scope = SUBTREE,
-                 attributes = [EMAIL_PROPERTY,FULL_NAME_PROPERTY],
+                 attributes = [EMAIL_PROPERTY,GIVEN_NAME_PROPERTY,SURNAME_PROPERTY],
                  paged_size = 5)
 
         if len(c.response) > 0:
             dn = c.response[0].get('dn')
             user_email = c.response[0].get('raw_attributes').get(EMAIL_PROPERTY)[0].decode('utf-8')
-            full_name = c.response[0].get('raw_attributes').get(FULL_NAME_PROPERTY)[0].decode('utf-8')
+            first_name = c.response[0].get('raw_attributes').get(GIVEN_NAME_PROPERTY)[0].decode('utf-8')
+            last_name = c.response[0].get('raw_attributes').get(SURNAME_PROPERTY)[0].decode('utf-8')
+
+            full_name = first_name + " " + last_name
 
             user_conn = Connection(server, auto_bind = True, client_strategy = SYNC, user = dn, password = password, authentication = SIMPLE, check_names = True)
 
