@@ -26,7 +26,7 @@ class LDAPLoginError(ConnectorBaseException):
 
 
 SERVER = getattr(settings, "LDAP_SERVER", "")
-PORT = getattr(settings, "LDAP_PORT", "")
+PORT = int(getattr(settings, "LDAP_PORT", ""))
 
 SEARCH_BASE = getattr(settings, "LDAP_SEARCH_BASE", "")
 SEARCH_PROPERTY = getattr(settings, "LDAP_SEARCH_PROPERTY", "")
